@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The National Budget's Impact on Economic Growth | Grade 8 E.M.S | EduNovaPro</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #00008B;
+      margin: 0;
+      height: 100vh;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      padding-top: 60px;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3em;
+      color: #99ccff;
+      margin-bottom: 10px;
+      z-index: 2;
+    }
+
+    p {
+      font-size: 1.4em;
+      max-width: 600px;
+      z-index: 2;
+    }
+
+    .shape {
+      position: absolute;
+      width: 200px;
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .shape-top-left {
+      top: 20px;
+      left: 20px;
+    }
+
+    .shape-top-right {
+      top: 20px;
+      right: 20px;
+    }
+
+    .button {
+      margin: 10px;
+      padding: 14px 24px;
+      font-size: 1.1em;
+      background-color: #99ccff;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #66aaff;
+    }
+
+    .video-container,
+    .link-container {
+      display: none;
+      margin-top: 30px;
+      z-index: 2;
+    }
+
+    .video-container video {
+      width: 90%;
+      max-width: 600px;
+      border: 4px solid #99ccff;
+      border-radius: 12px;
+    }
+
+    a.worksheet-link {
+      color: #99ccff;
+      font-size: 1.2em;
+      text-decoration: underline;
+    }
+
+    .nav-container {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding-top: 30px;
+      }
+      h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative shapes -->
+  <img src="shape1.png" alt="Shape Top Left" class="shape shape-top-left">
+  <img src="shape2.png" alt="Shape Top Right" class="shape shape-top-right">
+
+  <h1 id="topicTitle">The National Budget's Impact on Economic Growth  </h1>
+  <p><span id="studentName"></span>, let’s learn about The National Budget's influences!</p>
+
+  <div class="nav-container">
+    <button class="button" onclick="showSection('video')">▶️ Watch Video</button>
+    <button class="button" onclick="showSection('worksheet')">📝 Open Worksheet</button>
+    <button class="button" onclick="window.location.href='subjects8.html'">🔙 Back to Subjects</button>
+  </div>
+
+  <!-- Video Section -->
+  <div class="video-container" id="videoSection">
+    <h2>The National Budget's Impact on Economic Growth Video</h2>
+    <video controls>
+      <source src="Screen-recording-2025-07-31 11.35.50-PM.webm" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Worksheet Section -->
+  <div class="link-container" id="worksheetSection">
+    <h2>Worksheet</h2>
+    <a href="https://eur02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fforms.office.com%2Fr%2F6YXZDQCGqT&data=05%7C02%7Ccxmathews%40sa.christelhouse.org%7Ce871fadbbca04923cb8008ddde536be0%7C98354e229bce409ab52f94fccefc62ce%7C0%7C0%7C638911172065559601%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=rk8xQuYeoDfG5NkJe%2FrQmZII6cMKHjWQPEsKr9GCXvM%3D&reserved=0" class="worksheet-link" target="_blank">
+      Complete the Worksheet Here
+    </a>
+  </div>
+
+<script>
+  // ✅ Display student name
+  const userInfoStr = localStorage.getItem("userInfo");
+  if (userInfoStr) {
+    const userInfo = JSON.parse(userInfoStr);
+    document.getElementById("studentName").textContent = userInfo.name || "Student";
+  } else {
+    document.getElementById("studentName").textContent = "Student";
+  }
+
+  // ✅ Store session start time
+  if (!localStorage.getItem("startTime")) {
+    localStorage.setItem("startTime", Date.now());
+  }
+  const startTime = localStorage.getItem("startTime");
+
+  // ✅ Track time on page
+  window.addEventListener("beforeunload", function () {
+    if (!userInfoStr || !startTime) return;
+
+    const userInfo = JSON.parse(userInfoStr);
+    const endTime = Date.now();
+    const duration = Math.round((endTime - parseInt(startTime)) / 1000);
+
+    const data = new URLSearchParams();
+    data.append("name", userInfo.name);
+    data.append("surname", userInfo.surname);
+    data.append("house", userInfo.house);
+    data.append("grade", userInfo.grade);
+    data.append("duration", duration);
+
+    navigator.sendBeacon(
+      "https://script.google.com/macros/s/AKfycbzpGr-PO_ytf5jqiMOQjc0-MktoFX8Bn9gkAV3byClF4F4KqyyePLGqp1wjUHSSX0D81w/exec",
+      data
+    );
+
+    // Cleanup only startTime (optional: keep userInfo across pages)
+    localStorage.removeItem("startTime");
+  });
+
+  // ✅ Toggle sections
+  function showSection(section) {
+    document.getElementById("videoSection").style.display = section === 'video' ? "block" : "none";
+    document.getElementById("worksheetSection").style.display = section === 'worksheet' ? "block" : "none";
+  }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grade 9 Dashboard | EduNovaPro</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Load Orbitron font for consistency -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #00008B;
+      margin: 0;
+      height: 100vh;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      padding-top: 60px;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3em;
+      color: #99ccff;
+      margin-bottom: 10px;
+      z-index: 2;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: #ffffff;
+      margin-top: 0;
+      z-index: 2;
+    }
+
+    .button-container {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 80%;
+      max-width: 400px;
+      z-index: 2;
+    }
+
+    .dashboard-btn {
+      background-color: #3399FF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 20px 30px;
+      font-size: 1.4em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .dashboard-btn:hover {
+      background-color: #1e7ec8;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #ffffff;
+      margin-top: 50px;
+      z-index: 2;
+    }
+
+    .shape {
+      position: absolute;
+      width: 200px;
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .shape-top-left {
+      top: 20px;
+      left: 20px;
+    }
+
+    .shape-top-right {
+      top: 20px;
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative Shapes -->
+  <img src="shape1.png" alt="Shape Top Left" class="shape shape-top-left">
+  <img src="shape2.png" alt="Shape Top Right" class="shape shape-top-right">
+
+  <h1 id="welcomeMessage">Welcome</h1>
+  <h2>Pick Your Destination</h2>
+
+  <div class="button-container">
+    <button class="dashboard-btn" id="subjectsBtn">📚 Subjects</button>
+    <button class="dashboard-btn" id="quizzesBtn">📝 Weekly Quizzes</button>
+    <button class="dashboard-btn" id="pastPapersBtn">📄 Past Papers</button>
+  </div>
+
+  <p>More features will be added soon!</p>
+
+  <script>
+    // ✅ Only set the timer if it hasn't been set already
+    if (!localStorage.getItem("startTime")) {
+      localStorage.setItem("startTime", Date.now());
+    }
+
+    // ✅ Display "Welcome [Name]"
+    const userInfoStr = localStorage.getItem("userInfo");
+    let welcomeText = "Welcome";
+
+    if (userInfoStr) {
+      const userInfo = JSON.parse(userInfoStr);
+      if (userInfo.name && userInfo.name.trim() !== "") {
+        welcomeText += " " + userInfo.name.trim();
+      }
+    }
+
+    document.getElementById("welcomeMessage").textContent = welcomeText;
+
+    // ✅ Redirect buttons
+    document.getElementById("subjectsBtn").addEventListener("click", function () {
+      window.location.href = "subjects9.html";
+    });
+
+    document.getElementById("quizzesBtn").addEventListener("click", function () {
+      window.location.href = "Weekly9.html";
+    });
+
+    document.getElementById("pastPapersBtn").addEventListener("click", function () {
+      window.location.href = "Past9.html";
+    });
+  </script>
+
+</body>
+</html>

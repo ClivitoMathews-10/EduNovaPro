@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E.M.S | EduNovaPro</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Orbitron font for style -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+
+
+  <style>
+    body {
+      background-color: #00008B;
+      margin: 0;
+      height: 100vh;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      padding-top: 60px;
+      position: relative;
+    }
+
+    .shape {
+      position: absolute;
+      width: 200px;
+      opacity: 1;
+      z-index: 1;
+    }
+    .shape-top-left { top: 20px; left: 20px; }
+    .shape-top-right { top: 20px; right: 20px; }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 3em;
+      color: #99ccff;
+      z-index: 2;
+      font-family: 'Orbitron', Arial, sans-serif;
+    }
+
+    .btn-container {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 80%;
+      max-width: 350px;
+      z-index: 2;
+    }
+
+    button.topic-btn {
+      background-color: #3399FF;
+      border: none;
+      border-radius: 8px;
+      padding: 20px 30px;
+      font-size: 1.4em;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    button.topic-btn:hover {
+      background-color: #1e7ec8;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="shape1.png" alt="Shape Top Left" class="shape shape-top-left" />
+  <img src="shape2.png" alt="Shape Top Right" class="shape shape-top-right" />
+
+  <h1 id="welcomeMessage">Welcome to E.M.S!</h1>
+
+  <div class="btn-container">
+    <button class="topic-btn" onclick="window.location.href='TheGov8.html'">🏦 The Government</button>
+    <button class="topic-btn" onclick="window.location.href='Taxes8.html'">💰 Types of Taxes</button>
+    <button class="topic-btn" onclick="window.location.href='GEOS8.html'">💼 Government Expenditure on Services</button>
+    <button class="topic-btn" onclick="window.location.href='National8.html'">🧾 The National Budget</button>
+    <button class="topic-btn" onclick="window.location.href='EcoGrowth8.html'">🏧 The National Budget's Impact on Economic Growth</button>
+    <button class="topic-btn" onclick="window.location.href='ReIn8.html'">🎏 The National Budget's Impact on Reducing Inequality</button> 
+    <button class="topic-btn" onclick="window.location.href='LIDS8.html'">🎏 Lifestyles in Different Societies </button> 
+    <button class="topic-btn" onclick="window.location.href='SOL8.html'">🎏 Standard of Living</button> 
+    <button class="topic-btn" onclick="window.location.href='ImpactOfDe8.html'">🎏 Impact of Development on The Enviroment</button> 
+    <button class="topic-btn" onclick="window.location.href='Unemployment8.html'">🎏 Unemployment</button> 
+  </div>
+
+  <script>
+    const userInfoStr = localStorage.getItem("userInfo");
+    if (userInfoStr) {
+      const userInfo = JSON.parse(userInfoStr);
+      if (userInfo.name && userInfo.name.trim() !== "") {
+        document.getElementById("welcomeMessage").textContent =
+          `Welcome to Physical Science, ${userInfo.name.trim()}!`;
+      }
+    }
+
+    document.getElementById("The GovernmentBtn").addEventListener("click", function() {
+      window.location.href = "TheGov8.html";
+    });
+
+    document.getElementById("Types of TaxesBtn").addEventListener("click", function() {
+      window.location.href = "Taxes8.html";
+    });
+
+    document.getElementById("Government Expenditure on Services").addEventListener("click", function() {
+      window.location.href = "GEOS8.html";
+    });
+
+    // Save start time on page load
+    if (!localStorage.getItem("startTime")) {
+  localStorage.setItem("startTime", Date.now());
+}
+
+// Track session duration and send on page unload
+window.addEventListener("beforeunload", function() {
+  if (!userInfoStr) return;
+
+  const startTime = localStorage.getItem("startTime");
+  if (!startTime) return;
+
+  const userInfo = JSON.parse(userInfoStr);
+  const endTime = Date.now();
+  const duration = Math.round((endTime - parseInt(startTime)) / 1000);
+
+  const data = new URLSearchParams();
+  data.append("name", userInfo.name);
+  data.append("surname", userInfo.surname);
+  data.append("house", userInfo.house);
+  data.append("grade", userInfo.grade);
+  data.append("duration", duration);
+
+  navigator.sendBeacon(
+    "https://script.google.com/macros/s/AKfycbzpGr-PO_ytf5jqiMOQjc0-MktoFX8Bn9gkAV3byClF4F4KqyyePLGqp1wjUHSSX0D81w/exec",
+    data
+  );
+
+  // Clear stored session info
+  localStorage.removeItem("userInfo");
+  localStorage.removeItem("startTime");
+});
+
+
+</body>
+</html>
