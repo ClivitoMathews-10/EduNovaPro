@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EduNovaPro</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Load Orbitron font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #00008B; /* Dark blue background */
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-size: 4em;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      color: #99ccff; /* Softer light blue for blending */
+      margin-top: 50px;
+    }
+
+    .login-area {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .login-area input[type="text"] {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 15px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      width: 250px;
+    }
+
+    .login-area button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #3399FF; /* Light blue button */
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .login-area button:hover {
+      background-color: #1e7ec8; /* Darker blue on hover */
+    }
+
+    .shape {
+      position: absolute;
+      width: 200px;
+      opacity: 2;
+      z-index: 1;
+    }
+
+    .shape-top-left {
+      top: 20px;
+      left: 20px;
+    }
+
+    .shape-top-right {
+      top: 20px;
+      right: 20px;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 60px;
+      width: 100%;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      font-size: 0.9em;
+    }
+
+    footer a {
+      color: #ffcc00;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>EduNovaPro</h1>
+
+  <!-- Login Area -->
+  <div class="login-area">
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <input type="text" id="surnameInput" placeholder="Enter your surname">
+    <input type="text" id="houseInput" placeholder="Enter your house">
+    <input type="text" id="gradeInput" placeholder="Enter your grade">
+    <button id="submitBtn" type="submit">Submit</button>
+  </div>
+
+  <!-- Scattered shapes -->
+  <img src="shape1.png" alt="Shape Top Left" class="shape shape-top-left">
+  <img src="shape2.png" alt="Shape Top Right" class="shape shape-top-right">
+
+  <footer>
+  © 2025 Clivito Mathews. All rights reserved. |
+  <a href="Source Document.docx" target="_blank">Source Document</a> |
+  <a href="mailto:boyt24247@gmail.com?subject=Help with EduNovaPro" style="color: #ffcc00; text-decoration: underline;">Any Problems? Click here!</a>
+</footer>
+
+
+  <script>
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.addEventListener("click", function() {
+      const name = document.getElementById("nameInput").value.trim();
+      const surname = document.getElementById("surnameInput").value.trim();
+      const house = document.getElementById("houseInput").value.trim();
+      const grade = document.getElementById("gradeInput").value.trim();
+
+      if (!name || !surname || !house || !grade) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Save user info and global session startTime in localStorage
+      const userInfo = { name, surname, house, grade };
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      localStorage.setItem("startTime", Date.now().toString());
+
+      // ✅ Send info to Sheet 1 (basic info, NO duration)
+      const data = new URLSearchParams();
+      data.append("name", name);
+      data.append("surname", surname);
+      data.append("house", house);
+      data.append("grade", grade);
+
+      navigator.sendBeacon(
+        "https://script.google.com/macros/s/AKfycbxa4cA3wnQpgDSQl9bbz_rON8xp_0vSN1Mpqgyd-zQv7ju02U8_i50gYY1eOrgoC8WefA/exec",
+        data
+      );
+
+      alert("Welcome, " + name + "!");
+
+      if (grade === "8" || grade.toLowerCase() === "grade 8") {
+        window.location.href = "dashboard8.html";
+      }
+    });
+
+    // ✅ NO beforeunload for duration on index.html!
+    // It will run on other pages instead.
+  </script>
+</body>
+</html>
